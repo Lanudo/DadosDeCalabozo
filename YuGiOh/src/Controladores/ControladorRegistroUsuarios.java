@@ -5,6 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Vistas.*;
 import Modelo.*;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class ControladorRegistroUsuarios implements ActionListener {
     private VistaRegistroUsuarios registroUsuario; 
@@ -24,13 +29,24 @@ public class ControladorRegistroUsuarios implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String nombreUser = this.registroUsuario.nombreUsuario.getText();
-        String contrasenaUser = this.registroUsuario.contrasena1.getText();
-        String contrasena2User = this.registroUsuario.contrasena2.getText();
+        String nombreUsuario= this.registroUsuario.nombreUsuario.getText();
+        String contrasena1= this.registroUsuario.contrasena1.getText();
+        String contrasena2= this.registroUsuario.contrasena2.getText();
         Object boton = e.getSource();
         if (boton == this.registroUsuario.Registrarse){
-            //Codigo que guardara un nuevo usuario en la base de datos..
-            //ocuapndo los metodos de la clase Jugador.
+            Jugador usuario = new Jugador(null);
+            List<String> usuariosRegistrados;
+            try {
+                usuariosRegistrados=usuario.UsuariosRegistrados();
+                if(usuariosRegistrados.contains(nombreUsuario)){
+                    JOptionPane.showMessageDialog(null,"Nombre de usuario no disponible");
+                }
+                else{
+                    
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ControladorRegistroUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         if (boton == this.registroUsuario.cambiarPuzle){

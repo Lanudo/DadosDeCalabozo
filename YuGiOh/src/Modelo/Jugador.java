@@ -1,7 +1,7 @@
 
 package Modelo;
 
-import java.awt.List;
+import java.util.List;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,11 +20,12 @@ public class Jugador {
     public Jugador(String nombre) {
         this.nombre = nombre;
     }
+
     
-    public Jugador(){
+    /*public Jugador(){
         this.setNombreJugador("Fulanito");
         
-    }
+    }*/
     
     public void nuevoUsuario(String nombre,String contraseña) throws SQLException{
         ConeccionBD conexion = new ConeccionBD();
@@ -45,18 +46,18 @@ public class Jugador {
         }   
     }
     
-    public java.util.List<String> UsuariosRegistrados() throws SQLException{
-        java.util.List<String> listaUsuarios = new ArrayList<String>();
+    public List<String> UsuariosRegistrados() throws SQLException{
+        List<String> listaUsuarios = new ArrayList<String>();
         ConeccionBD conexion = new ConeccionBD();
         boolean resultado = conexion.conectar();
         if (resultado==true){
-            final String consulta = "SELECT NOMBRE FROM USUARIO";//Depende del nombre de las tablas de la base de datos.
+            final String consulta = "SELECT NOMBRE_JUGADOR FROM JUGADOR";
             Statement stmt = conexion.crearConsulta();
             ResultSet resultados = null;
             if (stmt != null){
                 resultados = stmt.executeQuery(consulta);
                 while(resultados.next()){
-                    String nombreUsuario = resultados.getString(1);
+                    String nombreUsuario = resultados.getString(2);
                     listaUsuarios.add(nombreUsuario);
                 }
                 resultados.close();
