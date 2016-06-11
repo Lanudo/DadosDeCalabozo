@@ -35,6 +35,7 @@ public class ControladorRegistroUsuarios implements ActionListener {
         Object boton = e.getSource();
         if (boton == this.registroUsuario.Registrarse){
             Jugador usuario = new Jugador(null);
+            int id = usuario.generarID();
             List<String> usuariosRegistrados;
             try {
                 usuariosRegistrados=usuario.UsuariosRegistrados();
@@ -42,7 +43,17 @@ public class ControladorRegistroUsuarios implements ActionListener {
                     JOptionPane.showMessageDialog(null,"Nombre de usuario no disponible");
                 }
                 else{
-                    
+                    if(contrasena1.equals(contrasena2)){
+                        int opcion = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere registrarse"
+                            + "con los datos ingresados?", null,JOptionPane.YES_NO_OPTION );
+                        if(opcion==JOptionPane.YES_OPTION){
+                            usuario.nuevoUsuario(nombreUsuario, contrasena1, id);
+                            JOptionPane.showMessageDialog(null, "Usuario registrado");
+                        }
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Las contraseñas no son identicas");
+                    }
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(ControladorRegistroUsuarios.class.getName()).log(Level.SEVERE, null, ex);

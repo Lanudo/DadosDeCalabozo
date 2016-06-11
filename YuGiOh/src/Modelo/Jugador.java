@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 
@@ -20,19 +21,22 @@ public class Jugador {
     public Jugador(String nombre) {
         this.nombre = nombre;
     }
-
     
+    public int generarID(){
+        Random rnd = new Random();
+        int id = (int) (rnd.nextDouble()*1000+1);
+        return id;
+    }
     /*public Jugador(){
         this.setNombreJugador("Fulanito");
         
     }*/
     
-    public void nuevoUsuario(String nombre,String contraseña) throws SQLException{
+    public void nuevoUsuario(String nombre,String contraseña,int id) throws SQLException{
         ConeccionBD conexion = new ConeccionBD();
         boolean resultado = conexion.conectar();
-        if (resultado==true){
-            //Depende de la base de datos
-            final String consulta = "INSERT INTO USUARIO (NOMBRE,PASS) VALUES ('"+nombre+"','"+contraseña+")";
+        if (resultado==true){            
+            final String consulta = "INSERT INTO JUGADOR (ID_JUGADOR,NOMBRE_JUGADOR,ESPNJ_JUGAROR,CONTRASENIA_JUGADOR) VALUES ('"+id+"','"+nombre+"','1000','"+contraseña+"')";
             Statement stmt = conexion.crearConsulta();
             if (stmt != null){
                 stmt.executeUpdate(consulta);
