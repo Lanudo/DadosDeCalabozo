@@ -16,6 +16,10 @@ public class Jugador {
     private boolean turnoActual;
     //private Dado dado;???
     //private Criatura criatura;???
+
+    public Jugador(String nombre) {
+        this.nombre = nombre;
+    }
     
     public Jugador(){
         this.setNombreJugador("Fulanito");

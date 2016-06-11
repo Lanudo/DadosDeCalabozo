@@ -13,6 +13,11 @@ public class JefeDeTerreno {
     private int dueno;
     private int identificador;
 
+    public JefeDeTerreno(String nombre, String habilidad) {
+        this.nombre = nombre;
+        this.habilidad = habilidad;
+    }
+    
     public String getNombre() {
         return nombre;
     }

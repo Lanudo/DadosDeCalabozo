@@ -10,6 +10,12 @@ public class Dado {
     private String caras[];
     private Criatura criatura;
 
+    public Dado(String nombre, String[] caras, Criatura criatura) {
+        this.nombre = nombre;
+        this.caras = caras;
+        this.criatura = criatura;
+    }
+    
     public String getNombre() {
         return nombre;
     }

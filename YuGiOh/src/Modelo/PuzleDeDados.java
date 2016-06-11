@@ -4,16 +4,16 @@ package Modelo;
 
 public class PuzleDeDados {
     
-    Dado dado;
+    Dado dado[] = new Dado[15];
     Jugador jugador;
     private String[] dados;
     private String[] puzleDeDados;
 
-    public Dado getDado() {
+    public Dado[] getDado() {
         return dado;
     }
 
-    public void setDado(Dado dado) {
+    public void setDado(Dado dado[]) {
         this.dado = dado;
     }
 
@@ -40,11 +40,4 @@ public class PuzleDeDados {
     public void setPuzleDeDados(String[] puzleDeDados) {
         this.puzleDeDados = puzleDeDados;
     }
-    
-    
-
-
-    
-    
-    
 }

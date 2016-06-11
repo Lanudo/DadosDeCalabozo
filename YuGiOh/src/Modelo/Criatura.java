@@ -22,6 +22,15 @@ public class Criatura {
     boolean mover;
     private Dado dado;
 
+    public Criatura(String nombre, int puntosDeVida, int defensa, int nivel, int ataque, Dado dado) {
+        this.nombre = nombre;
+        this.puntosDeVida = puntosDeVida;
+        this.defensa = defensa;
+        this.nivel = nivel;
+        this.ataque = ataque;
+        this.dado = dado;
+    }
+    
     public String getNombre() {
         return nombre;
     }
