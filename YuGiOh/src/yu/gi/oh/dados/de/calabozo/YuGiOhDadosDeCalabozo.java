@@ -14,6 +14,7 @@ public class YuGiOhDadosDeCalabozo {
         ControladorInicio controladorInicio = new ControladorInicio(vistaInicio);
         controladorInicio.iniciar_VistaInicio();
         vistaInicio.setVisible(true); 
+        
     }
     
 }

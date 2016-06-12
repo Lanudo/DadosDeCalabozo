@@ -13,6 +13,7 @@ import java.util.Random;
 public class Jugador {
     private String nombre;
     private String contraseña;
+    private int id;
     private boolean PNJ;
     private boolean turnoActual;
     //private Dado dado;???
@@ -22,21 +23,30 @@ public class Jugador {
         this.nombre = nombre;
     }
     
+    //Metodo para generar una id de 9 digitos para el usuario que se registra
     public int generarID(){
         Random rnd = new Random();
-        int id = (int) (rnd.nextDouble()*1000+1);
-        return id;
+        String num1,num2,num3,num4,num5,num6;
+        num1= String.valueOf((int) (rnd.nextDouble()*9+1));
+        num2= String.valueOf((int) (rnd.nextDouble()*9+1));
+        num3= String.valueOf((int) (rnd.nextDouble()*9+1));
+        num4= String.valueOf((int) (rnd.nextDouble()*9+1));
+        num5= String.valueOf((int) (rnd.nextDouble()*9+1));
+        num6= String.valueOf((int) (rnd.nextDouble()*9+1));
+        String id = num1+num2+num3+num4+num5+num6;
+        int idFinal = Integer.parseInt(id);
+        return idFinal;
     }
-    /*public Jugador(){
+    public Jugador(){
         this.setNombreJugador("Fulanito");
         
-    }*/
+    }
     
     public void nuevoUsuario(String nombre,String contraseña,int id) throws SQLException{
         ConeccionBD conexion = new ConeccionBD();
         boolean resultado = conexion.conectar();
         if (resultado==true){            
-            final String consulta = "INSERT INTO JUGADOR (ID_JUGADOR,NOMBRE_JUGADOR,ESPNJ_JUGAROR,CONTRASENIA_JUGADOR) VALUES ('"+id+"','"+nombre+"','1000','"+contraseña+"')";
+            final String consulta = "INSERT INTO JUGADOR (ID_JUGADOR,NOMBRE_JUGADOR,ESPNJ_JUGADOR,CONTRASENIA_JUGADOR) VALUES ("+id+",'"+nombre+"',false,'"+contraseña+"')";
             Statement stmt = conexion.crearConsulta();
             if (stmt != null){
                 stmt.executeUpdate(consulta);
@@ -61,7 +71,7 @@ public class Jugador {
             if (stmt != null){
                 resultados = stmt.executeQuery(consulta);
                 while(resultados.next()){
-                    String nombreUsuario = resultados.getString(2);
+                    String nombreUsuario = resultados.getString(1);
                     listaUsuarios.add(nombreUsuario);
                 }
                 resultados.close();
@@ -79,21 +89,21 @@ public class Jugador {
         }   
     }
     
-    public String contraseñaUsuarios(String usuario) throws SQLException{
+    public String contraseniaUsuarios(String usuario) throws SQLException{
         ConeccionBD conexion = new ConeccionBD();
         boolean resultado = conexion.conectar();
         if (resultado==true){
-            final String consulta = "SELECT PASS FROM USUARIO WHERE NOMBRE = '" +usuario+"'";//ESTO DEPENDE DE LAS TABLAS DE LA BASE DE DATOS
+            final String consulta = "SELECT CONTRASENIA_JUGADOR FROM JUGADOR WHERE NOMBRE_JUGADOR = '" +usuario+"'";
             Statement stmt = conexion.crearConsulta();
             ResultSet resultados = null;
             if (stmt != null){
                 resultados = stmt.executeQuery(consulta);
                 resultados.next();
-                String passUsuario = resultados.getString(1);//El numero depende de la base de datos.
+                String contrasenia = resultados.getString(1);
                 resultados.close();
                 stmt.close();
                 conexion.desconectar();
-                return passUsuario;
+                return contrasenia;
             }
             else{
                 conexion.desconectar();

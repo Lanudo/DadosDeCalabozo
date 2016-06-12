@@ -5,6 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import Vistas.*;
+import Modelo.*;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -27,16 +32,25 @@ public class ControladorInicio implements ActionListener {
         String nombreUsuario = this.vistaInicio.nombreUsuario.getText();
         String contrasena = this.vistaInicio.contraseña.getText();
         if (boton == this.vistaInicio.iniciar){
-            if (nombreUsuario.equals("dados") && contrasena.equals("123")){
-                VistaMenuPrincipal menuPrincipal = new VistaMenuPrincipal();
-                ControladorMenuPrincipal ctrlMenu = new ControladorMenuPrincipal(menuPrincipal);
-                ctrlMenu.iniciar_MenuPrincipal();
-                menuPrincipal.setVisible(true);
-                vistaInicio.setVisible(false); 
+            Jugador usuario = new Jugador(null);
+            List<String> usuariosRegistrados;
+            try {
+                usuariosRegistrados = usuario.UsuariosRegistrados();
+                if(usuariosRegistrados.contains(nombreUsuario)){
+                    String contrasenia = usuario.contraseniaUsuarios(nombreUsuario);
+                    if(contrasenia.equals(contrasena)){
+                        VistaMenuPrincipal vistaMenu = new VistaMenuPrincipal();
+                        ControladorMenuPrincipal ctrlMenu = new ControladorMenuPrincipal(vistaMenu);
+                        ctrlMenu.iniciar_MenuPrincipal();
+                        vistaMenu.setVisible(true);
+                        vistaInicio.setVisible(false);         
+                    }                 
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ControladorInicio.class.getName()).log(Level.SEVERE, null, ex);
             }
-            else{
-            JOptionPane.showMessageDialog(null, "Datos incorrectos, por favor intentelo de nuevo");
-        }
+            
+            
         }
         
         if (boton == this.vistaInicio.registrarse){

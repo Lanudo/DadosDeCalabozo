@@ -35,7 +35,7 @@ public class ControladorRegistroUsuarios implements ActionListener {
         Object boton = e.getSource();
         if (boton == this.registroUsuario.Registrarse){
             Jugador usuario = new Jugador(null);
-            int id = usuario.generarID();
+            
             List<String> usuariosRegistrados;
             try {
                 usuariosRegistrados=usuario.UsuariosRegistrados();
@@ -44,6 +44,7 @@ public class ControladorRegistroUsuarios implements ActionListener {
                 }
                 else{
                     if(contrasena1.equals(contrasena2)){
+                        int id = usuario.generarID();
                         int opcion = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere registrarse"
                             + "con los datos ingresados?", null,JOptionPane.YES_NO_OPTION );
                         if(opcion==JOptionPane.YES_OPTION){
@@ -61,10 +62,12 @@ public class ControladorRegistroUsuarios implements ActionListener {
         }
         
         if (boton == this.registroUsuario.cambiarPuzle){
-            VistaPuzleDeDados puzleDados = new VistaPuzleDeDados();
+            Jugador jugador = new Jugador(null);
+            System.out.println(jugador.generarID());
+            /*VistaPuzleDeDados puzleDados = new VistaPuzleDeDados();
             ControladorPuzleDeDados ctrlPuzle = new ControladorPuzleDeDados(puzleDados);
             ctrlPuzle.iniciarPuzleDados();
-            puzleDados.setVisible(true);
+            puzleDados.setVisible(true);*/
         }
         if (boton == this.registroUsuario.Volver){
             VistaInicio vistaInicio = new VistaInicio();

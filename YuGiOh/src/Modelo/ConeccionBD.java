@@ -7,10 +7,10 @@ import java.sql.SQLException;
 
 public class ConeccionBD {
     private static final String SERVIDOR = "localhost";
-    private static final String PUERTO = "1507";
-    private static final String NOMBRE_BD = "YuGiOhDB";
-    private static final String USUARIO = "Dados";
-    private static final String PASSWORD = "dados";
+    private static final String PUERTO = "1527";
+    private static final String NOMBRE_BD = "DadosDeCalabozoDB";
+    private static final String USUARIO = "calabozo";
+    private static final String PASSWORD = "calabozo";
     public static final String URL_CONEXION = "jdbc:derby://" + SERVIDOR + ":"+ PUERTO +"/"+ NOMBRE_BD +";user="+ USUARIO +";password=" + PASSWORD;
     private Connection conexion= null;
     
