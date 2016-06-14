@@ -16,6 +16,7 @@ public class EstadisticasCriatura extends javax.swing.JFrame {
      */
     public EstadisticasCriatura() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

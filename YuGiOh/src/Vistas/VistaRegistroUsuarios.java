@@ -16,6 +16,7 @@ public class VistaRegistroUsuarios extends javax.swing.JFrame {
      */
     public VistaRegistroUsuarios() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

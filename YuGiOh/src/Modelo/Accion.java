@@ -8,12 +8,14 @@ import java.lang.reflect.Array;
 
 
 public class Accion {
-     private String lanzarDado(Dado dado){
-       String[] caras = dado.getDado();
+     
+    /*
+    private String lanzarDado(Dado dado){
+       String[] caras = dado.getDado(null,null,null);
        int x = (int) Math.random() * Array.getLength(caras);
        String resultado = caras[x];
        return resultado;
-    }
+    }*/
     
     //En el siguiente método, el jugador1 es el que selecciona a su criatura para que
     //Ataque a la criatura2 del jugador2.

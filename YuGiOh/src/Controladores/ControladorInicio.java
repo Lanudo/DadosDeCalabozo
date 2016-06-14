@@ -35,7 +35,7 @@ public class ControladorInicio implements ActionListener {
             Jugador usuario = new Jugador(null);
             List<String> usuariosRegistrados;
             try {
-                usuariosRegistrados = usuario.UsuariosRegistrados();
+                usuariosRegistrados = usuario.usuariosRegistrados();
                 if(usuariosRegistrados.contains(nombreUsuario)){
                     String contrasenia = usuario.contraseniaUsuarios(nombreUsuario);
                     if(contrasenia.equals(contrasena)){

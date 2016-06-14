@@ -41,12 +41,12 @@ public class Jugador {
         this.setNombreJugador("Fulanito");
         
     }
-    
+    //Metodo para guardar un nuevo usuario
     public void nuevoUsuario(String nombre,String contraseña,int id) throws SQLException{
         ConeccionBD conexion = new ConeccionBD();
         boolean resultado = conexion.conectar();
         if (resultado==true){            
-            final String consulta = "INSERT INTO JUGADOR (ID_JUGADOR,NOMBRE_JUGADOR,ESPNJ_JUGADOR,CONTRASENIA_JUGADOR) VALUES ("+id+",'"+nombre+"',false,'"+contraseña+"')";
+            final String consulta = "INSERT INTO JUGADOR (ID_JUGADOR,NOMBRE_JUGADOR,ESPNJ_JUGADOR,CONTRASENIA_JUGADOR) VALUES ("+id+",'"+nombre+"',0,'"+contraseña+"')";
             Statement stmt = conexion.crearConsulta();
             if (stmt != null){
                 stmt.executeUpdate(consulta);
@@ -59,8 +59,8 @@ public class Jugador {
             }
         }   
     }
-    
-    public List<String> UsuariosRegistrados() throws SQLException{
+    //Metodo para obtener a los usuario registrados
+    public List<String> usuariosRegistrados() throws SQLException{
         List<String> listaUsuarios = new ArrayList<String>();
         ConeccionBD conexion = new ConeccionBD();
         boolean resultado = conexion.conectar();
@@ -88,7 +88,7 @@ public class Jugador {
             return null;
         }   
     }
-    
+    //Metodo para obtener la contraseña de los usuarios
     public String contraseniaUsuarios(String usuario) throws SQLException{
         ConeccionBD conexion = new ConeccionBD();
         boolean resultado = conexion.conectar();
@@ -114,6 +114,38 @@ public class Jugador {
             return null;
         }
     }
+    //Metodo que busca la id de un usuario
+    public String idJugador(String nombreJugador) throws SQLException{
+        ConeccionBD conexion = new ConeccionBD();
+        boolean resultado = conexion.conectar();
+        if (resultado==true){
+            final String consulta = "SELECT ID_JUGADOR FROM JUGADOR WHERE NOMBRE_JUGADOR= '"+nombreJugador+"'"; 
+            Statement stmt = conexion.crearConsulta();
+            ResultSet resultados = null;
+            if (stmt != null){
+                resultados = stmt.executeQuery(consulta);
+                if(resultados.next()){
+                    String id = resultados.getString(1);           
+                    resultados.close();
+                    stmt.close();
+                    conexion.desconectar();
+                    return id;
+                }
+                else{
+                    conexion.desconectar();
+                    return null;
+                }
+            }
+            else{
+                conexion.desconectar();
+                return null;
+            } 
+        }
+        else{
+            return null;
+        }   
+    }
+    
 
     public boolean getTurnoActual() {
         return turnoActual;

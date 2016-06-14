@@ -1,9 +1,12 @@
 
 package Modelo;
 
-import Modelo.*;
-import java.awt.List;
+import java.util.List;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.AbstractList;
+import java.util.ArrayList;
 
 public class Criatura {
     
@@ -148,12 +151,7 @@ public class Criatura {
         enemigo.setPuntosDeVida(danoRealizado);
         return danoRealizado;
     }
-    
-    public void invocarCriatura(){
-        
-    }
-    
-   
+       
     public int[] estadisticasCriatura(Criatura criatura){
         int[] estadisticas = new int[4];
         estadisticas[0] = criatura.getAtaque();
@@ -162,4 +160,105 @@ public class Criatura {
         estadisticas[3] = criatura.getNivel();  
         return estadisticas;
     }
+    //Metodo que busca los datos de las criaturas que estan en la base de datos.
+    public List<String> datosCriaturas(String nombreCriatura) throws SQLException{
+        List<String> datosCriaturas = new ArrayList<String>();
+        ConeccionBD conexion = new ConeccionBD();
+        boolean resultado = conexion.conectar();
+        if (resultado==true){
+            final String consulta = "SELECT * FROM CRIATURA WHERE NOMBRE_CRIATURA = '"+nombreCriatura+"'";
+            Statement stmt = conexion.crearConsulta();
+            ResultSet resultados = null;
+            if (stmt != null){
+                resultados = stmt.executeQuery(consulta);
+                if(resultados.next()){
+                    String ataque = resultados.getString(3);
+                    String defensa = resultados.getString(4);
+                    String hp = resultados.getString(5);
+                    String nivel = resultados.getString(6);
+                    datosCriaturas.add(ataque);
+                    datosCriaturas.add(defensa);
+                    datosCriaturas.add(hp);
+                    datosCriaturas.add(nivel);             
+                    resultados.close();
+                    stmt.close();
+                    conexion.desconectar();
+                    return datosCriaturas;
+                }
+                else{
+                    conexion.desconectar();
+                    return null;
+                }
+            }
+            else{
+                conexion.desconectar();
+                return null;
+            } 
+        }
+        else{
+            return null;
+        }   
+    }
+    //Metodo que busca las criaturas que estan en la base de datos
+    public List<String> buscarCriaturas() throws SQLException{
+        List<String> listaCriaturas = new ArrayList<String>();
+        ConeccionBD conexion = new ConeccionBD();
+        boolean resultado = conexion.conectar();
+        if (resultado==true){
+            final String consulta = "SELECT NOMBRE_CRIATURA FROM CRIATURA";
+            Statement stmt = conexion.crearConsulta();
+            ResultSet resultados = null;
+            if (stmt != null){
+                resultados = stmt.executeQuery(consulta);
+                while(resultados.next()){
+                    String nombreUsuario = resultados.getString(1);
+                    listaCriaturas.add(nombreUsuario);
+                }
+                resultados.close();
+                stmt.close();
+                conexion.desconectar();
+                return listaCriaturas;
+            }
+            else{
+                conexion.desconectar();
+                return null;
+            } 
+        }
+        else{
+            return null;
+        }   
+    }
+    //metodo que busca el id de la criatura
+    public String idCriatura(String nombreCriatura) throws SQLException{
+        ConeccionBD conexion = new ConeccionBD();
+        boolean resultado = conexion.conectar();
+        if (resultado==true){
+            final String consulta = "SELECT ID_CRIATURA FROM CRIATURA WHERE NOMBRE_CRIATURA= '"+nombreCriatura+"'"; 
+            Statement stmt = conexion.crearConsulta();
+            ResultSet resultados = null;
+            if (stmt != null){
+                resultados = stmt.executeQuery(consulta);
+                if(resultados.next()){
+                    String id = resultados.getString(1);           
+                    resultados.close();
+                    stmt.close();
+                    conexion.desconectar();
+                    return id;
+                }
+                else{
+                    conexion.desconectar();
+                    return null;
+                }
+            }
+            else{
+                conexion.desconectar();
+                return null;
+            } 
+        }
+        else{
+            return null;
+        }   
+    }
+    
+    
 }

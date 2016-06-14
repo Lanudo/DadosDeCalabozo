@@ -23,6 +23,7 @@ public class ControladorRegistroUsuarios implements ActionListener {
         this.registroUsuario.contrasena1.addActionListener(this);
         this.registroUsuario.contrasena2.addActionListener(this);
         this.registroUsuario.cambiarPuzle.addActionListener(this);
+     
         this.registroUsuario.Registrarse.addActionListener(this);
         this.registroUsuario.Volver.addActionListener(this);
     }
@@ -34,24 +35,31 @@ public class ControladorRegistroUsuarios implements ActionListener {
         String contrasena2= this.registroUsuario.contrasena2.getText();
         Object boton = e.getSource();
         if (boton == this.registroUsuario.Registrarse){
-            Jugador usuario = new Jugador(null);
-            
+            //this.registroUsuario.cambiarPuzle.setEnabled(true);
+            Jugador usuario = new Jugador(null); 
             List<String> usuariosRegistrados;
             try {
-                usuariosRegistrados=usuario.UsuariosRegistrados();
+                usuariosRegistrados=usuario.usuariosRegistrados();
                 if(usuariosRegistrados.contains(nombreUsuario)){
                     JOptionPane.showMessageDialog(null,"Nombre de usuario no disponible");
                 }
+                else if(nombreUsuario.equals("")){
+                    JOptionPane.showMessageDialog(null,"Ingrese un nombre de usuario");
+                }
                 else{
-                    if(contrasena1.equals(contrasena2)){
+                    if(contrasena1.equals("")){
+                        JOptionPane.showMessageDialog(null,"La contraseña no puede ser vacia");
+                    }
+                    else if(contrasena1.equals(contrasena2)){
                         int id = usuario.generarID();
                         int opcion = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere registrarse"
                             + "con los datos ingresados?", null,JOptionPane.YES_NO_OPTION );
                         if(opcion==JOptionPane.YES_OPTION){
                             usuario.nuevoUsuario(nombreUsuario, contrasena1, id);
-                            JOptionPane.showMessageDialog(null, "Usuario registrado");
+                            JOptionPane.showMessageDialog(null, "Usuario registrado. No olvide crear su puzle de dados");
                         }
                     }
+                    
                     else{
                         JOptionPane.showMessageDialog(null, "Las contraseñas no son identicas");
                     }
@@ -62,12 +70,10 @@ public class ControladorRegistroUsuarios implements ActionListener {
         }
         
         if (boton == this.registroUsuario.cambiarPuzle){
-            Jugador jugador = new Jugador(null);
-            System.out.println(jugador.generarID());
-            /*VistaPuzleDeDados puzleDados = new VistaPuzleDeDados();
+            VistaPuzleDeDados puzleDados = new VistaPuzleDeDados();
             ControladorPuzleDeDados ctrlPuzle = new ControladorPuzleDeDados(puzleDados);
             ctrlPuzle.iniciarPuzleDados();
-            puzleDados.setVisible(true);*/
+            puzleDados.setVisible(true);
         }
         if (boton == this.registroUsuario.Volver){
             VistaInicio vistaInicio = new VistaInicio();

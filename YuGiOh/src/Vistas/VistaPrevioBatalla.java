@@ -16,6 +16,7 @@ public class VistaPrevioBatalla extends javax.swing.JFrame {
      */
     public VistaPrevioBatalla() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Vistas.*;
 import Modelo.*;
-import static javafx.beans.binding.Bindings.or;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 

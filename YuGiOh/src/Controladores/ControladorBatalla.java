@@ -35,28 +35,7 @@ public class ControladorBatalla implements ActionListener {
     PuzleDeDados[] puzles = new PuzleDeDados[2];
     Dado[] dadosJ1 = new Dado[15];
     Dado[] dadosJ2 = new Dado[15];
-    /*Jugador jugador1 = new Jugador();
-    Jugador jugador2 = new Jugador();
-    Criatura criatura1 = new Criatura();
-    Criatura criatura2 = new Criatura();
-    Criatura criatura3 = new Criatura();
-    Criatura criatura4 = new Criatura();
-    Criatura criatura5 = new Criatura();
-    Criatura criatura6 = new Criatura();
-    Criatura criatura7 = new Criatura();
-    Criatura criatura8 = new Criatura();
-    JefeDeTerreno jefe1 = new JefeDeTerreno();
-    JefeDeTerreno jefe2 = new JefeDeTerreno();
-    PuzleDeDados puzleJ1 = new PuzleDeDados();
-    PuzleDeDados puzleJ2 = new PuzleDeDados();
-    Dado dado1J1 = new Dado();
-    Dado dado2J1 = new Dado();
-    Dado dado3J1 = new Dado();
-    Dado dado4J1 = new Dado();
-    Dado dado1J2 = new Dado();
-    Dado dado2J2 = new Dado();
-    Dado dado3J2 = new Dado();
-    Dado dado4J2 = new Dado();*/
+   
    
     public ControladorBatalla(VistaBatalla vistaBatalla){
         this.vistaBatalla = vistaBatalla;  
