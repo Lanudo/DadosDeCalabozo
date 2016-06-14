@@ -89,7 +89,7 @@ public class ControladorPrevioBatalla implements ActionListener {
         
         if (boton == this.previoBatalla.GenerarBatalla){
             
-            VistaBatalla vistaBatalla = new VistaBatalla(combate);
+            VistaBatalla vistaBatalla = new VistaBatalla();
             ControladorBatalla ctrlBatalla = new ControladorBatalla(vistaBatalla);
             ctrlBatalla.iniciar_VistaBatalla();
             vistaBatalla.setVisible(true);

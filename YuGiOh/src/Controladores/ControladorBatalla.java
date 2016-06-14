@@ -2,6 +2,8 @@ package Controladores;
 
 import Vistas.*;
 import Modelo.*;
+import static Vistas.VistaBatalla.panelTablero;
+import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,13 +25,14 @@ public class ControladorBatalla implements ActionListener {
     private int defensa;
     private int invocaciones;
     private List<String> dadosSeleccionados = new ArrayList<>();
-    public static int botonPresionado;
+    int botonPresionado;
     DespliegueDados despliegue;
-    public static Combate combate = new Combate();
-    Accion accion = new Accion();
-    Tablero tablero = new Tablero(this, combate);
+    public Criatura criaturaInvocada = null;
+    public Combate combate = new Combate();
+    Accion accion = new Accion(null, null);
+    public Tablero tablero = new Tablero(this, this.accion);
     Jugador jugadores[] = new Jugador[2];
-    Criatura criaturasJ1[] = new Criatura[15];
+    public static Criatura criaturasJ1[] = new Criatura[15];
     Criatura[] criaturasJ2 = new Criatura[15];
     JefeDeTerreno[] jefes = new JefeDeTerreno[2];
     PuzleDeDados[] puzles = new PuzleDeDados[2];
@@ -60,6 +63,8 @@ public class ControladorBatalla implements ActionListener {
    
     public ControladorBatalla(VistaBatalla vistaBatalla){
         this.vistaBatalla = vistaBatalla;  
+        AudioClip sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/Chuunibyou.wav"));
+        sonido.play();
     } 
     
     public void iniciar_VistaBatalla(){
@@ -182,10 +187,10 @@ public class ControladorBatalla implements ActionListener {
         String carasD4J2[] = {"inv","inv","magia","atk","inv","tramp"};
         String carasD5J2[] = {"inv","inv","magia","atk","inv","tramp"};
         String carasD6J2[] = {"inv","inv","magia","atk","inv","tramp"};
-        Criatura criatura13J2 = new Criatura("Blingo nivel 2", 450, 140, 2, 200, dadosJ2[12]);
-        Criatura criatura4J2 = new Criatura("Hairuk nivel 2", 150, 360, 2, 270, dadosJ2[3]);
-        Criatura criatura5J2 = new Criatura("Rogbal nivel 2", 160, 350, 2, 260, dadosJ2[4]);
-        Criatura criatura6J2 = new Criatura("Coork nivel 2", 140, 355, 2, 280, dadosJ2[5]);
+        Criatura criatura13J2 = new Criatura("Blingo nivel 2", 1450, 140, 2, 200, dadosJ2[12]);
+        Criatura criatura4J2 = new Criatura("Hairuk nivel 2", 1500, 360, 2, 270, dadosJ2[3]);
+        Criatura criatura5J2 = new Criatura("Rogbal nivel 2", 1600, 350, 2, 260, dadosJ2[4]);
+        Criatura criatura6J2 = new Criatura("Coork nivel 2", 1400, 355, 2, 280, dadosJ2[5]);
         criaturasJ2[12] = criatura13J2;
         criaturasJ2[3] = criatura4J2;
         criaturasJ2[4] = criatura5J2;
@@ -267,21 +272,21 @@ public class ControladorBatalla implements ActionListener {
         this.vistaBatalla.boxCriaturasJ1.addItem(criaturasJ1[12].getNombre());
         this.vistaBatalla.boxCriaturasJ1.addItem(criaturasJ1[13].getNombre());
         this.vistaBatalla.boxCriaturasJ1.addItem(criaturasJ1[14].getNombre());
-        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ1[0].getNombre());
-        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ1[1].getNombre());
-        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ1[2].getNombre());
-        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ1[3].getNombre());
-        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ1[4].getNombre());
-        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ1[5].getNombre());
-        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ1[6].getNombre());
-        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ1[7].getNombre());
-        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ1[8].getNombre());
-        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ1[9].getNombre());
-        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ1[10].getNombre());
-        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ1[11].getNombre());
-        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ1[12].getNombre());
-        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ1[13].getNombre());
-        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ1[14].getNombre());
+        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ2[0].getNombre());
+        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ2[1].getNombre());
+        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ2[2].getNombre());
+        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ2[3].getNombre());
+        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ2[4].getNombre());
+        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ2[5].getNombre());
+        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ2[6].getNombre());
+        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ2[7].getNombre());
+        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ2[8].getNombre());
+        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ2[9].getNombre());
+        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ2[10].getNombre());
+        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ2[11].getNombre());
+        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ2[12].getNombre());
+        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ2[13].getNombre());
+        this.vistaBatalla.boxCriaturaJ2.addItem(criaturasJ2[14].getNombre());
         //
         this.vistaBatalla.dadosPuzle.addActionListener(this);
         this.vistaBatalla.seleccionarDado.addActionListener(this);
@@ -307,7 +312,7 @@ public class ControladorBatalla implements ActionListener {
         this.vistaBatalla.pruebaImagen.setToolTipText("hola");
         this.vistaBatalla.jLabel7.setToolTipText("Hola pos!~ ♥");
         
-        this.tablero.setTerreno(false);
+        
         //this.vistaBatalla.panelTablero.
         this.vistaBatalla.finTurno.addActionListener(this);
         this.vistaBatalla.txtJugador1.addActionListener(this);
@@ -339,26 +344,28 @@ public class ControladorBatalla implements ActionListener {
         
         this.vistaBatalla.seleccionarDado.addActionListener(this);
         this.vistaBatalla.lanzar.addActionListener(this);
-        this.vistaBatalla.dibujo();
+        this.dibujo();
     }
     public int getBoton(){
         return this.botonPresionado;
     }
     
-    public static void setBoton(int boton){
-        ControladorBatalla.botonPresionado = boton;
+    public void setBoton(int boton){
+        this.botonPresionado = boton;
+    }
+    public void dibujo(){
+        panelTablero.add(tablero);
+        panelTablero.setVisible(true);
+        
     }
     
-    private void despliegueDados(){
-        ImageIcon icono;
-        icono = new ImageIcon(getClass().getResource("/Users/Lucas/Desktop/respaldo/Documents/Usach, voy por ti!/despliegue.png"));
-        Image imagen = icono.getImage();
-        ImageIcon iconoEscalado = new ImageIcon(imagen.getScaledInstance(100, 100, Image.SCALE_SMOOTH));
-        this.vistaBatalla.pruebaImagen.setIcon(iconoEscalado);
+    public Criatura getCriatura(){
+        return this.criaturaInvocada;
     }
+    
     private void desplegarDados(){
         for(int i = 1; i<= this.invocaciones ; i++){
-        VistaBatalla.tablero.setVisible(false);
+        this.tablero.setVisible(false);
         DespliegueDados despliegue1 = new DespliegueDados(this);
         VistaBatalla.panelTablero.add(despliegue1);
         despliegue1.setVisible(true);
@@ -371,19 +378,20 @@ public class ControladorBatalla implements ActionListener {
         Object boton = e.getSource();  
         if (boton == this.vistaBatalla.turno){
             this.tablero.ponerJefe(2);
-            Vistas.VistaBatalla.tablero.repaint();
-            Vistas.VistaBatalla.tablero.setVisible(true);
+            this.tablero.repaint();
+            this.tablero.setVisible(true);
             combate.seleccionarTurno(2, jugadores[0].getNombreJugador(), jugadores[1].getNombreJugador(), null, null);
             System.out.println(combate.getJugadorActual());
             JOptionPane.showMessageDialog(null, "Juega el jugador " + combate.getJugadorActual());
             this.vistaBatalla.turno.setEnabled(false);
-            this.vistaBatalla.lanzar.setEnabled(true);
+            this.vistaBatalla.lanzar.setEnabled(false);
             this.vistaBatalla.lanzarDados.setEnabled(true);
         }
         //Condicion para mostrar los dados del jugador actual
         if (boton == this.vistaBatalla.lanzarDados){                    
             this.vistaBatalla.seleccionarDado.setVisible(true);          
-            this.vistaBatalla.panelLanzarDados.setEnabled(true);       
+            this.vistaBatalla.panelLanzarDados.setEnabled(true);
+            this.vistaBatalla.lanzarDados.setEnabled(false);
             String turno = combate.getJugadorActual();                    
             if (turno.equals(combate.getJugador1())){                    
                 System.out.print(combate.getJugador1());                 
@@ -405,7 +413,9 @@ public class ControladorBatalla implements ActionListener {
         if (boton == this.vistaBatalla.seleccionarDado){  
             String dado = this.vistaBatalla.dadosPuzle.getSelectedItem().toString();
             this.dadosSeleccionados.add(dado);
-            this.vistaBatalla.dadosPuzle.removeItem(dado);                                                         
+            this.vistaBatalla.dadosPuzle.removeItem(dado); 
+            this.vistaBatalla.lanzar.setEnabled(true);
+            
         }                                                                  
    
         if (boton == this.vistaBatalla.lanzar){  
@@ -415,7 +425,7 @@ public class ControladorBatalla implements ActionListener {
             this.vistaBatalla.trampa.setEnabled(true);
             this.vistaBatalla.mover.setEnabled(true);
             String jugadorActual = combate.getJugadorActual();
-            List<String> carasEscogidas = new ArrayList<>();
+            ArrayList<String> carasEscogidas = new ArrayList<>();
             if (combate.getJugadorActual().equals(combate.getJugador1())){
                 for (Dado dadosJugador1 : dadosJ1) {
                     String nombreDado = dadosJugador1.getNombre();
@@ -439,40 +449,47 @@ public class ControladorBatalla implements ActionListener {
                         this.vistaBatalla.caraDado4.setText(caraEscogida4);
                     }
                 }
-                for (String cara : carasEscogidas){
-                if(cara.equals("atk")){
+                for (int j = 0 ; j < 4; j++){
+                if(carasEscogidas.get(j).equals("atk")){
                     String ataque = this.vistaBatalla.ataqueJ1.getText();
                     int cantidadAtaque = Integer.parseInt(ataque) + 1;
                     String nuevoAtaque = String.valueOf(cantidadAtaque);
                     this.vistaBatalla.ataqueJ1.setText(nuevoAtaque);
                 }
-                if(cara.equals("mov")){
+                if(carasEscogidas.get(j).equals("mov")){
                     String movimiento = this.vistaBatalla.movimientoJ1.getText();
                     int cantidadMovimiento = Integer.parseInt(movimiento) + 1;
                     String nuevoMovimiento = String.valueOf(cantidadMovimiento);
                     this.vistaBatalla.movimientoJ1.setText(nuevoMovimiento);
                 }
-                if(cara.equals("magia")){
+                if(carasEscogidas.get(j).equals("magia")){
                     String magia = this.vistaBatalla.magiaJ1.getText();
                     int cantidadMagia = Integer.parseInt(magia) + 1;
                     String nuevaMagia = String.valueOf(cantidadMagia);
                     this.vistaBatalla.magiaJ1.setText(nuevaMagia);
                 }
-                if(cara.equals("tramp")){
+                if(carasEscogidas.get(j).equals("tramp")){
                     String trampa = this.vistaBatalla.trampaJ1.getText();
                     int cantidadTrampa = Integer.parseInt(trampa) + 1;
                     String nuevaTrampa = String.valueOf(cantidadTrampa);
                     this.vistaBatalla.trampaJ1.setText(nuevaTrampa);
                 }
-                if(cara.equals("inv")){
-                    VistaBatalla.tablero.setVisible(false);
+                if(carasEscogidas.get(j).equals("inv")){
+                    this.tablero.setVisible(false);
                     DespliegueDados despliegue1 = new DespliegueDados(this);
                     VistaBatalla.panelTablero.add(despliegue1);
                     despliegue1.setVisible(true);
+                     for(int a = 0; a < 15 ; a++){
+                        if(dadosSeleccionados.get(j).equals(criaturasJ1[a].getNombre())){
+                            this.setCriatura(criaturasJ1[a]);
+                            
+                            a = 15; 
+                        }
                 }
             }    
             }
-            else if (combate.getJugadorActual().equals(combate.getJugador2())){
+            }
+            else if(combate.getJugadorActual().equals(combate.getJugador2())){
                 for (Dado dadosJugador2 : dadosJ2) {
                     String nombreDado = dadosJugador2.getNombre();
                     if (nombreDado.equals(this.dadosSeleccionados.get(0))) {
@@ -493,36 +510,44 @@ public class ControladorBatalla implements ActionListener {
                         this.vistaBatalla.caraDado4.setText(caraEscogida4);
                     }
                 }
-                for (String cara : carasEscogidas){
-                if(cara.equals("atk")){
+                for (int j = 0 ; j < 4 ; j++ ){
+                if(carasEscogidas.get(j).equals("atk")){
                     String ataque = this.vistaBatalla.ataqueJ2.getText();
                     int cantidadAtaque = Integer.parseInt(ataque) + 1;
                     String nuevoAtaque = String.valueOf(cantidadAtaque);
                     this.vistaBatalla.ataqueJ2.setText(nuevoAtaque);
                 }
-                if(cara.equals("mov")){
+                if(carasEscogidas.get(j).equals("mov")){
                     String movimiento = this.vistaBatalla.movimientoJ2.getText();
                     int cantidadMovimiento = Integer.parseInt(movimiento) + 1;
                     String nuevoMovimiento = String.valueOf(cantidadMovimiento);
                     this.vistaBatalla.movimientoJ2.setText(nuevoMovimiento);
                 }
-                if(cara.equals("magia")){
+                if(carasEscogidas.get(j).equals("magia")){
                     String magia = this.vistaBatalla.magiaJ2.getText();
                     int cantidadMagia = Integer.parseInt(magia) + 1;
                     String nuevaMagia = String.valueOf(cantidadMagia);
                     this.vistaBatalla.magiaJ2.setText(nuevaMagia);
                 }
-                if(cara.equals("tramp")){
+                if(carasEscogidas.get(j).equals("tramp")){
                     String trampa = this.vistaBatalla.trampaJ2.getText();
                     int cantidadTrampa = Integer.parseInt(trampa) + 1;
                     String nuevaTrampa = String.valueOf(cantidadTrampa);
                     this.vistaBatalla.trampaJ2.setText(nuevaTrampa);
                 }
-                if(cara.equals("inv")){
-                    VistaBatalla.tablero.setVisible(false);
+                if(carasEscogidas.get(j).equals("inv")){
+                    this.tablero.setVisible(false);
                     DespliegueDados despliegue1 = new DespliegueDados(this);
                     VistaBatalla.panelTablero.add(despliegue1);
                     despliegue1.setVisible(true);
+                    for(int a = 0; a < 15 ; a++){
+                        if(dadosSeleccionados.get(j).equals(criaturasJ2[a].getNombre())){
+                            this.setCriatura(criaturasJ2[a]);
+                           
+                            a = 15;
+                            
+                        }
+                    }
                 }
             }    
             }            
@@ -614,21 +639,30 @@ public class ControladorBatalla implements ActionListener {
         }
         
         if(boton == this.vistaBatalla.mover ){
-            VistaBatalla.tablero.setVisible(true);
-            Vistas.VistaBatalla.tablero.repaint();
+            this.tablero.setVisible(true);
+            this.tablero.repaint();
             
             }
             
         if(boton == this.vistaBatalla.trampa){
-            ControladorBatalla.setBoton(21);
+            this.setBoton(21);
+            tablero.setVisible(false);
+            Trampas trampa = new Trampas(this);
+            panelTablero.add(trampa);
+            trampa.setVisible(true);
         
+        }
+        if(boton == this.vistaBatalla.atacar){
+            this.setBoton(77);
+            
         }
         if(boton == this.vistaBatalla.finTurno){
             this.vistaBatalla.atacar.setEnabled(false);
-            this.vistaBatalla.lanzar.setEnabled(true);
+            this.vistaBatalla.lanzar.setEnabled(false);
             this.vistaBatalla.magia.setEnabled(false);
             this.vistaBatalla.trampa.setEnabled(false);
             this.vistaBatalla.mover.setEnabled(false);
+            this.vistaBatalla.lanzarDados.setEnabled(true);
             this.dadosSeleccionados.clear();
             String actual = this.combate.getJugadorSiguente();
             String siguiente = this.combate.getJugadorActual();
@@ -639,6 +673,11 @@ public class ControladorBatalla implements ActionListener {
         }
         
     }
+
+    public void setCriatura(Criatura criaturaInvocada) {
+        this.criaturaInvocada = criaturaInvocada;
+    }
 }
+
     
             

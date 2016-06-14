@@ -13,14 +13,15 @@ import Controladores.ControladorBatalla;
  */
 public class Trampas extends javax.swing.JPanel {
     
-    
+    ControladorBatalla controlador;
 
     /**
      * Creates new form Trampas
      */
-    public Trampas() {
+    public Trampas(ControladorBatalla cb) {
         initComponents();
         this.setSize(399, 401);
+        this.controlador = cb;
         trampaOsos.setToolTipText("Impide el movimiento de la criatura, pero esta puede atacar.");
         trampaLadrones.setToolTipText("Hace retroceder a la criatura un espacio y le quita el 10% de su salud restante.ln Incluye las casillas adyacentes");
         renacerMuerto.setToolTipText("Revive a una criatura, la cual se coloca en lugar de la criatura actual, que vuelve a ser un dado.");
@@ -133,23 +134,23 @@ public class Trampas extends javax.swing.JPanel {
 
     private void trampaOsosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trampaOsosActionPerformed
         // TODO add your handling code here:
-        Controladores.ControladorBatalla.setBoton(21);
+        this.controlador.setBoton(21);
         this.setVisible(false);
-        VistaBatalla.tablero.setVisible(true);
+        this.controlador.tablero.setVisible(true);
     }//GEN-LAST:event_trampaOsosActionPerformed
 
     private void trampaLadronesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trampaLadronesActionPerformed
         // TODO add your handling code here:
-        Controladores.ControladorBatalla.setBoton(22);
+        this.controlador.setBoton(22);
         this.setVisible(false);
-        VistaBatalla.tablero.setVisible(true);
+        this.controlador.tablero.setVisible(true);
     }//GEN-LAST:event_trampaLadronesActionPerformed
 
     private void renacerMuertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_renacerMuertoActionPerformed
         // TODO add your handling code here:
-        Controladores.ControladorBatalla.setBoton(23);
+        this.controlador.setBoton(23);
         this.setVisible(false);
-        VistaBatalla.tablero.setVisible(true);
+        this.controlador.tablero.setVisible(true);
     }//GEN-LAST:event_renacerMuertoActionPerformed
 
 

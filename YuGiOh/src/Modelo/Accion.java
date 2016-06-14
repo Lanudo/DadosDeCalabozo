@@ -8,6 +8,14 @@ import java.lang.reflect.Array;
 
 
 public class Accion {
+    
+    private Criatura criaturaAtacante;
+    private Criatura criaturaDefensora;
+    
+    public Accion(Criatura ataca, Criatura defiende){
+        this.criaturaAtacante = ataca;
+        this.criaturaDefensora = defiende;
+    }
      private String lanzarDado(Dado dado){
        String[] caras = dado.getDado();
        int x = (int) Math.random() * Array.getLength(caras);
@@ -17,7 +25,7 @@ public class Accion {
     
     //En el siguiente método, el jugador1 es el que selecciona a su criatura para que
     //Ataque a la criatura2 del jugador2.
-    private void ataque(Jugador jugador1, Jugador jugador2, Criatura criatura1, Criatura criatura2){
+    protected void ataque(Criatura criatura1, Criatura criatura2){
         int cantidadAtk = criatura1.getAtaque();
         int cantidadDef = criatura2.getDefensa();
         int dañoResultante = cantidadAtk - cantidadDef;
@@ -46,19 +54,12 @@ public class Accion {
         int coordX = (rialX / 25);
         int coordY = (rialY / 25);
         int[] coordenadas = {coordX, coordY};
-        criatura.setPosicionX(coordX);
-        criatura.setPosicionY(coordY);
         return coordenadas;
     }
     
-    private void pintarTablero(Graphics g, int[] coordenadas){
-        int x = coordenadas[0];
-        int y = coordenadas[1];
-        g.setColor(Color.ORANGE);
-        g.fillRect(12+x*25, 12+y*25, 37+x*25, 37+25*y);
+    public void invocarCriatura(Criatura criatura){
         
     }
-    
     
     
     

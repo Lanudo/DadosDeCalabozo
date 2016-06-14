@@ -5,6 +5,7 @@
  */
 package Vistas;
 
+import Controladores.ControladorBatalla;
 import Modelo.Combate;
 import Modelo.Tablero;
 import java.awt.Component;
@@ -17,25 +18,19 @@ import java.awt.event.MouseListener;
 
 public class VistaBatalla extends javax.swing.JFrame {
 
-    public static int[][] tableroTerreno = new int[15][15];
-    public static Tablero tablero;
-    Combate combate;
+    
+    
     
     /**
      * Creates new form VistaBatalla
      */
     
-    public VistaBatalla(Combate combate) {
+    public VistaBatalla() {
         initComponents();
-        this.combate = combate;
+        
 
     }
-    public void dibujo(){
-        tablero = new Tablero(null, combate);
-        panelTablero.add(tablero);
-        panelTablero.setVisible(true);
-        
-    }
+    
     
    
     
@@ -650,7 +645,7 @@ public class VistaBatalla extends javax.swing.JFrame {
             .addGroup(panelTableroLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(362, Short.MAX_VALUE))
+                .addContainerGap(376, Short.MAX_VALUE))
         );
 
         lanzar.setText("Lanzar");
@@ -739,7 +734,7 @@ public class VistaBatalla extends javax.swing.JFrame {
                             .addComponent(trampa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(69, 69, 69)
+                        .addGap(55, 55, 55)
                         .addComponent(panelLanzarDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 5, Short.MAX_VALUE))
         );
@@ -753,10 +748,7 @@ public class VistaBatalla extends javax.swing.JFrame {
 
     private void trampaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trampaActionPerformed
         // TODO add your handling code here:
-        tablero.setVisible(false);
-        Trampas trampa = new Trampas();
-        panelTablero.add(trampa);
-        trampa.setVisible(true);
+        
     }//GEN-LAST:event_trampaActionPerformed
     
     

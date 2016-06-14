@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import Controladores.ControladorBatalla;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class Tablero extends JPanel{
     
@@ -18,20 +19,22 @@ public class Tablero extends JPanel{
     
     JefeDeTerreno jefe;
     Criatura criatura;
-    Combate combate;
+    Accion accion;
     public static int[][][] tableroTerreno = new int[15][15][3];
-    private ArrayList<ArrayList<Criatura>> tableroCriatura = new ArrayList<ArrayList<Criatura>>();
-    private ArrayList coordenadas;
+    private Criatura[][] tableroCriatura = new Criatura[15][15];
     private ControladorBatalla batalla;
     private ArrayList<JButton> botones = new ArrayList<>();
+    private Criatura criaturaAtacante;
+    private Criatura criaturaDefensora;
+    private Criatura criaturaMoviendose;
     boolean isJefe = false;
     boolean isCriatura = false;
     boolean isTerreno = false;
     
-    public Tablero(ControladorBatalla cb, Combate combate) {
+    public Tablero(ControladorBatalla cb, Accion a) {
         
         this.controladorBatalla = cb;
-        this.combate = combate;
+        this.accion = a;
         this.setBackground(Color.white);
         this.setBounds(0, 0, 404, 401);
         this.addMouseListener(new MouseAdapter(){
@@ -49,7 +52,7 @@ public class Tablero extends JPanel{
     public void paint(Graphics g){
         
         for(JButton boton: botones){
-        Vistas.VistaBatalla.tablero.remove(boton);
+        this.controladorBatalla.tablero.remove(boton);
         }
         super.paint(g);
         
@@ -68,36 +71,34 @@ public class Tablero extends JPanel{
                     int y1 = 12 + j*25;
                     g.fillRect(x1+1, y1+1, 24, 24);
                 }
-                if (tableroTerreno[i][j][1] == 1){
+                if (tableroTerreno[i][j][1] == 1 && tableroCriatura[i][j] != null){
                     g.setColor(Color.blue);
                     int x1 = 12 + i*25;
                     int y1 = 12 + j*25;
                     g.fillOval(x1+5, y1+5, 15, 15);
-                    JButton boton = new JButton();
-                    boton.setText("");
-                    boton.setBounds(x1 + 10,y1 + 10, 5, 5);
-                    boton.setToolTipText("Hola pos :3 ♥");
-                    this.add(boton);
-                    boton.setVisible(true);
-                    boton.setEnabled(true);
-                    boton.setBorderPainted(true);
-                    botones.add(boton);
+                    
                 } 
-                if (tableroTerreno[i][j][1] == 2){
+                if (tableroTerreno[i][j][1] == 2 && tableroCriatura[i][j] != null){
                     g.setColor(Color.red);
                     int x1 = 12 + i*25;
                     int y1 = 12 + j*25;
                     g.fillOval(x1+5, y1+5, 15, 15);
+                } 
+                if(tableroCriatura[i][j] != null){
+                    int x1 = 12 + i*25;
+                    int y1 = 12 + j*25;
                     JButton boton = new JButton();
                     boton.setText("");
                     boton.setBounds(10 + x1,10 + y1, 5, 5);
-                    boton.setToolTipText("Hola pos :3 ♥");
+                    Criatura criatura = this.tableroCriatura[i][j];
+                    String info = criatura.getNombre()+"/PV: "+criatura.getPuntosDeVida();
+                    boton.setToolTipText(info);
                     this.add(boton);
                     boton.setVisible(true);
                     boton.setEnabled(true);
                     boton.setBorderPainted(true);
                     botones.add(boton);
-                } 
+                }
                 if (tableroTerreno[i][j][2] == 1 && tableroTerreno[i][j][0] == 1){
                     g.setColor(Color.ORANGE);
                     int x1 = 12 + i*25;
@@ -142,116 +143,184 @@ public class Tablero extends JPanel{
         double y = coordenadas.getY();
         int xReal = (int)(x - 12)/25;
         int yReal = (int)(y-12)/25;
-        if(Controladores.ControladorBatalla.botonPresionado == 1){
+        if(this.controladorBatalla.getBoton() == 1){
             Tablero.tableroTerreno[xReal][yReal][0] = 1;
             Tablero.tableroTerreno[xReal-1][yReal][0] = 1;
             Tablero.tableroTerreno[xReal-1][yReal+1][0] = 1;
             Tablero.tableroTerreno[xReal-1][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal+1][yReal][0] = 1;
             Tablero.tableroTerreno[xReal+2][yReal][0] = 1;
+            this.controladorBatalla.setBoton(71);
         }
-        else if(Controladores.ControladorBatalla.botonPresionado == 2){
+        else if(this.controladorBatalla.getBoton()  == 2){
             Tablero.tableroTerreno[xReal][yReal][0] = 1;
             Tablero.tableroTerreno[xReal-1][yReal][0] = 1;
             Tablero.tableroTerreno[xReal-1][yReal+1][0] = 1;
             Tablero.tableroTerreno[xReal][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal+1][yReal][0] = 1;
             Tablero.tableroTerreno[xReal+2][yReal][0] = 1;
+            this.controladorBatalla.setBoton(71);
         }
-        else if(Controladores.ControladorBatalla.botonPresionado == 3){
+        else if(this.controladorBatalla.getBoton() == 3){
             Tablero.tableroTerreno[xReal][yReal][0] = 1;
             Tablero.tableroTerreno[xReal-1][yReal][0] = 1;
             Tablero.tableroTerreno[xReal-1][yReal+1][0] = 1;
             Tablero.tableroTerreno[xReal+1][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal+1][yReal][0] = 1;
             Tablero.tableroTerreno[xReal+2][yReal][0] = 1;
+            this.controladorBatalla.setBoton(71);
         }
-        else if(Controladores.ControladorBatalla.botonPresionado == 4){
+        else if(this.controladorBatalla.getBoton() == 4){
             Tablero.tableroTerreno[xReal][yReal][0] = 1;
             Tablero.tableroTerreno[xReal-1][yReal][0] = 1;
             Tablero.tableroTerreno[xReal-1][yReal+1][0] = 1;
             Tablero.tableroTerreno[xReal+2][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal+1][yReal][0] = 1;
             Tablero.tableroTerreno[xReal+2][yReal][0] = 1;
+            this.controladorBatalla.setBoton(71);
         }
-        else if(Controladores.ControladorBatalla.botonPresionado == 5){
+        else if(this.controladorBatalla.getBoton() == 5){
             Tablero.tableroTerreno[xReal][yReal][0] = 25;
             Tablero.tableroTerreno[xReal-1][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal+1][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal+2][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal][yReal-2][0] = 1;
+            this.controladorBatalla.setBoton(71);
         }
-        else if(Controladores.ControladorBatalla.botonPresionado == 6){
+        else if(this.controladorBatalla.getBoton() == 6){
             Tablero.tableroTerreno[xReal][yReal][0] = 1;
             Tablero.tableroTerreno[xReal-1][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal+1][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal+2][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal+1][yReal-2][0] = 1;
+            this.controladorBatalla.setBoton(71);
         }
-        else if(Controladores.ControladorBatalla.botonPresionado == 7){
+        else if(this.controladorBatalla.getBoton() == 7){
             Tablero.tableroTerreno[xReal][yReal][0] = 1;
             Tablero.tableroTerreno[xReal-1][yReal][0] = 1;
             Tablero.tableroTerreno[xReal][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal+1][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal+2][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal][yReal-2][0] = 1;
+            this.controladorBatalla.setBoton(71);
         }
-        else if(Controladores.ControladorBatalla.botonPresionado == 8){
+        else if(this.controladorBatalla.getBoton() == 8){
             Tablero.tableroTerreno[xReal][yReal][0] = 1;
             Tablero.tableroTerreno[xReal-1][yReal][0] = 1;
             Tablero.tableroTerreno[xReal][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal+1][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal+2][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal+1][yReal-2][0] = 1;
+            this.controladorBatalla.setBoton(71);
         }
-        else if(Controladores.ControladorBatalla.botonPresionado == 9){
+        else if(this.controladorBatalla.getBoton() == 9){
             Tablero.tableroTerreno[xReal][yReal][0] = 1;
             Tablero.tableroTerreno[xReal-1][yReal][0] = 1;
             Tablero.tableroTerreno[xReal][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal+1][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal+2][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal+2][yReal-2][0] = 1;
+            this.controladorBatalla.setBoton(71);
         }
-        else if(Controladores.ControladorBatalla.botonPresionado == 10){
+        else if(this.controladorBatalla.getBoton() == 10){
             Tablero.tableroTerreno[xReal][yReal][0] = 1;
             Tablero.tableroTerreno[xReal+1][yReal][0] = 1;
             Tablero.tableroTerreno[xReal+2][yReal][0] = 1;
             Tablero.tableroTerreno[xReal][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal-1][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal-2][yReal-1][0] = 1;
+            this.controladorBatalla.setBoton(71);
         }
-        else if(Controladores.ControladorBatalla.botonPresionado == 11){
+        else if(this.controladorBatalla.getBoton() == 11){
             Tablero.tableroTerreno[xReal][yReal][0] = 1;
             Tablero.tableroTerreno[xReal+1][yReal][0] = 1;
             Tablero.tableroTerreno[xReal][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal-1][yReal-1][0] = 1;
             Tablero.tableroTerreno[xReal-1][yReal-2][0] = 1;
             Tablero.tableroTerreno[xReal-2][yReal-2][0] = 1;
+            this.controladorBatalla.setBoton(71);
         }
-        else if(Controladores.ControladorBatalla.botonPresionado == 21) {
+        else if(this.controladorBatalla.getBoton() == 21) {
             Tablero.tableroTerreno[xReal][yReal][2] = 1;
+            this.controladorBatalla.setBoton(0);
         }
-         else if(Tablero.tableroTerreno[xReal][yReal][1] == 1) {
+        else if(this.controladorBatalla.getBoton()  == 77 && Tablero.tableroTerreno[xReal][yReal][1] !=  0 ){
+            this.criaturaAtacante = this.tableroCriatura[xReal][yReal];
+            this.controladorBatalla.setBoton(78);
+        }
+        else if(this.controladorBatalla.getBoton()  == 78 && Tablero.tableroTerreno[xReal][yReal][1] !=  0 ){
+            this.criaturaDefensora = this.tableroCriatura[xReal][yReal];
+            this.accion.ataque(criaturaAtacante, criaturaDefensora);
+            this.criaturaAtacante = null;
+            this.criaturaDefensora = null;
+            this.controladorBatalla.setBoton(0);
+        }
+         else if(this.controladorBatalla.getBoton() == 70 && Tablero.tableroTerreno[xReal][yReal][1] == 1) {
+            Criatura criaturaMover = tableroCriatura[xReal][yReal];
+            int[] anterior = {xReal, yReal};
+            criaturaMover.setPosicionAnterior(anterior);
+            this.criaturaMoviendose = criaturaMover;
             Tablero.tableroTerreno[xReal][yReal][1] = 0;
          }
-         else if(Tablero.tableroTerreno[xReal][yReal][1] == 2) {
+         else if(this.controladorBatalla.getBoton() == 70 && Tablero.tableroTerreno[xReal][yReal][1] == 2) {
+             Criatura criaturaMover = tableroCriatura[xReal][yReal];
+            int[] anterior = {xReal, yReal};
+            criaturaMover.setPosicionAnterior(anterior);
+            this.criaturaMoviendose = criaturaMover;
             Tablero.tableroTerreno[xReal][yReal][1] = 0;
          }
          
-        else if(Tablero.tableroTerreno[xReal][yReal][0] != 0) {
-            String actual = Controladores.ControladorBatalla.combate.getJugadorActual();
-            String jugador = Controladores.ControladorBatalla.combate.getJugador1();
+        else if(this.controladorBatalla.getBoton() == 71 && Tablero.tableroTerreno[xReal][yReal][0] == 1) {
+            String actual = this.controladorBatalla.combate.getJugadorActual();
+            String jugador = this.controladorBatalla.combate.getJugador1();
             if(actual.equals(jugador)){
                 Tablero.tableroTerreno[xReal][yReal][1] = 1;
+                Criatura criaturaInvocada = this.controladorBatalla.getCriatura();
+                if(criaturaInvocada.getNivel() == 1){
+                    this.tableroCriatura[xReal][yReal] = criaturaInvocada;
+                    JOptionPane.showMessageDialog(null, "Has logrado invocar a la criatura " + criaturaInvocada.getNombre());
+                }
+                else if(criaturaInvocada.getNivel() == 2){
+                    int invocaciones = criaturaInvocada.getInvocaciones();
+                    criaturaInvocada.setInvocaciones(invocaciones + 1);
+                    if(criaturaInvocada.getInvocaciones() == 2){
+                        this.tableroCriatura[xReal][yReal] = criaturaInvocada;
+                        JOptionPane.showMessageDialog(null, "Has logrado invocar a la criatura " + criaturaInvocada.getNombre());
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Te falta 1 invocación para obtner a " + criaturaInvocada.getNombre());
+                    }
+                    
+                }
+                this.controladorBatalla.setBoton(0);
             }
             else{
                 Tablero.tableroTerreno[xReal][yReal][1] = 2;
+                Criatura criaturaInvocada = this.controladorBatalla.getCriatura();
+                if(criaturaInvocada.getNivel() == 1){
+                    this.tableroCriatura[xReal][yReal] = criaturaInvocada;
+                    JOptionPane.showMessageDialog(null, "Has logrado invocar a la criatura " + criaturaInvocada.getNombre());
+                }
+                else if(criaturaInvocada.getNivel() == 2){
+                    int invocaciones = criaturaInvocada.getInvocaciones();
+                    criaturaInvocada.setInvocaciones(invocaciones + 1);
+                    if(criaturaInvocada.getInvocaciones() == 2){
+                        this.tableroCriatura[xReal][yReal] = criaturaInvocada;
+                        JOptionPane.showMessageDialog(null, "Has logrado invocar a la criatura " + criaturaInvocada.getNombre());
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Te falta 1 invocación para obtner a " + criaturaInvocada.getNombre());
+                    }
+                    
+                }
+                this.controladorBatalla.setBoton(0);
             }
         }
         
-        Controladores.ControladorBatalla.botonPresionado = 0;
+        
+        this.repaint();
      }
     
     
@@ -309,11 +378,11 @@ public class Tablero extends JPanel{
         this.tableroTerreno = tableroTerreno;
     }
 
-    public ArrayList<ArrayList<Criatura>> getTableroCriatura() {
+    public Criatura[][] getTableroCriatura() {
         return tableroCriatura;
     }
 
-    public void setTableroCriatura(ArrayList<ArrayList<Criatura>> tableroCriatura) {
+    public void setTableroCriatura(Criatura[][] tableroCriatura) {
         this.tableroCriatura = tableroCriatura;
     }
     
@@ -339,15 +408,6 @@ public class Tablero extends JPanel{
         }
     }
     
-    public void moverCriatura(Criatura criatura, int posX, int posY){
-        int antiguaPosX = criatura.getPosicionX();
-        int antiguaPosY = criatura.getPosicionY();
-        if (criatura.isMover() == true){
-            criatura.setPosicionX(posX);
-            criatura.setPosicionY(posY);
-            criatura.setMover(false);
-            tableroCriatura.get(posX).set(posY, criatura);
-            tableroCriatura.get(antiguaPosX).set(antiguaPosY, null);
-        }
-    }
+    
+    
 }
