@@ -15,10 +15,9 @@ public class Criatura {
     private int defensa;
     private int nivel;
     private int ataque;
-    private int posicionX;
-    private int posicionY;
-    private int cantidadMovimiento; 
-    private int cantidadAtaque;
+    private int invocaciones = 0;
+    private int[] posicionAnterior; 
+    private int[] posiciónActual;
     private int dueno;
     private int identificador; 
     boolean atacar;
@@ -36,6 +35,22 @@ public class Criatura {
     
     public String getNombre() {
         return nombre;
+    }
+
+    public int[] getPosicionAnterior() {
+        return posicionAnterior;
+    }
+
+    public void setPosicionAnterior(int[] posicionAnterior) {
+        this.posicionAnterior = posicionAnterior;
+    }
+
+    public int[] getPosiciónActual() {
+        return posiciónActual;
+    }
+
+    public void setPosiciónActual(int[] posiciónActual) {
+        this.posiciónActual = posiciónActual;
     }
 
     public void setNombre(String nombre) {
@@ -74,36 +89,29 @@ public class Criatura {
         this.ataque = ataque;
     }
 
-    public int getPosicionX() {
-        return posicionX;
-    }
-
-    public void setPosicionX(int posicionX) {
-        this.posicionX = posicionX;
-    }
-
-    public int getPosicionY() {
-        return posicionY;
-    }
-
-    public void setPosicionY(int posicionY) {
-        this.posicionY = posicionY;
-    }
-
-    public int getCantidadAtaque() {
-        return cantidadAtaque;
-    }
-
-    public void setCantidadAtaque(int cantidadAtaque) {
-        this.cantidadAtaque = cantidadAtaque;
-    }
-
     public int getDueno() {
         return dueno;
     }
 
     public void setDueno(int dueno) {
         this.dueno = dueno;
+    }
+
+    public int getInvocaciones() {
+        return invocaciones;
+    }
+
+    public void setInvocaciones(int invocaciones) {
+        this.invocaciones = invocaciones;
+    }
+
+    public int getIdentificador() {
+        return identificador;
+    }
+
+    public void setIdentificador(int identificador) {
+        this.identificador = identificador;
+
     }
 
     public Dado getDado() {

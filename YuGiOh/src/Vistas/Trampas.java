@@ -6,6 +6,7 @@
 package Vistas;
 
 import Controladores.ControladorBatalla;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,14 +14,15 @@ import Controladores.ControladorBatalla;
  */
 public class Trampas extends javax.swing.JPanel {
     
-    
+    ControladorBatalla controlador;
 
     /**
      * Creates new form Trampas
      */
-    public Trampas() {
+    public Trampas(ControladorBatalla cb) {
         initComponents();
         this.setSize(399, 401);
+        this.controlador = cb;
         trampaOsos.setToolTipText("Impide el movimiento de la criatura, pero esta puede atacar.");
         trampaLadrones.setToolTipText("Hace retroceder a la criatura un espacio y le quita el 10% de su salud restante.ln Incluye las casillas adyacentes");
         renacerMuerto.setToolTipText("Revive a una criatura, la cual se coloca en lugar de la criatura actual, que vuelve a ser un dado.");
@@ -44,6 +46,7 @@ public class Trampas extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Elija la trampa que desea colocar.");
@@ -77,6 +80,13 @@ public class Trampas extends javax.swing.JPanel {
 
         jLabel5.setText("Coste: 35 de trampa.");
 
+        jButton1.setText("Cerrar.");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -93,20 +103,25 @@ public class Trampas extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(trampaOsos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(trampaLadrones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(renacerMuerto, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel3)))
-                .addGap(114, 114, 114))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(trampaOsos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(trampaLadrones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(renacerMuerto, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(jLabel5))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(jLabel4))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(jLabel3)))
+                        .addGap(114, 114, 114))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,33 +142,127 @@ public class Trampas extends javax.swing.JPanel {
                 .addComponent(renacerMuerto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void trampaOsosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trampaOsosActionPerformed
-        // TODO add your handling code here:
-        Controladores.ControladorBatalla.setBoton(21);
-        this.setVisible(false);
-        VistaBatalla.tablero.setVisible(true);
+        
+        String actual = this.controlador.getCombate().getJugadorActual();
+        String jugador = this.controlador.getCombate().getJugador1();
+        if(actual.equals(jugador)){
+            String cantidadTrampa = this.controlador.getVistaBatalla().trampaJ1.getText();
+            int trampa = Integer.parseInt(cantidadTrampa);
+            if(trampa >= 10){
+                int trampaRestante = trampa - 10;
+                this.controlador.getVistaBatalla().trampaJ1.setText(String.valueOf(trampaRestante));
+                JOptionPane.showMessageDialog(null, "Ahora elije donde irá la trampa.");
+                this.controlador.setBoton(21);
+                this.setVisible(false);
+                this.controlador.tablero.setVisible(true);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "No tienes la cantidad de trampa suficiente.");
+            }
+        }
+        else{
+            String cantidadTrampa = this.controlador.getVistaBatalla().trampaJ2.getText();
+            int trampa = Integer.parseInt(cantidadTrampa);
+            if(trampa >= 10){
+                int trampaRestante = trampa - 10;
+                this.controlador.getVistaBatalla().trampaJ2.setText(String.valueOf(trampaRestante));
+                JOptionPane.showMessageDialog(null, "Ahora elije donde irá la trampa.");
+                this.controlador.setBoton(21);
+                this.setVisible(false);
+                this.controlador.tablero.setVisible(true);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "No tienes la cantidad de trampa suficiente.");
+            }
+        }
     }//GEN-LAST:event_trampaOsosActionPerformed
 
     private void trampaLadronesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trampaLadronesActionPerformed
-        // TODO add your handling code here:
-        Controladores.ControladorBatalla.setBoton(22);
-        this.setVisible(false);
-        VistaBatalla.tablero.setVisible(true);
+        String actual = this.controlador.getCombate().getJugadorActual();
+        String jugador = this.controlador.getCombate().getJugador1();
+        if(actual.equals(jugador)){
+            String cantidadTrampa = this.controlador.getVistaBatalla().trampaJ1.getText();
+            int trampa = Integer.parseInt(cantidadTrampa);
+            if(trampa >= 15){
+                int trampaRestante = trampa - 15;
+                this.controlador.getVistaBatalla().trampaJ1.setText(String.valueOf(trampaRestante));
+                JOptionPane.showMessageDialog(null, "Ahora elije donde irá la trampa.");
+                this.controlador.setBoton(22);
+                this.setVisible(false);
+                this.controlador.tablero.setVisible(true);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "No tienes la cantidad de trampa suficiente.");
+            }
+        }
+        else{
+            String cantidadTrampa = this.controlador.getVistaBatalla().trampaJ2.getText();
+            int trampa = Integer.parseInt(cantidadTrampa);
+            if(trampa >= 15){
+                int trampaRestante = trampa - 15;
+                this.controlador.getVistaBatalla().trampaJ2.setText(String.valueOf(trampaRestante));
+                JOptionPane.showMessageDialog(null, "Ahora elije donde irá la trampa.");
+                this.controlador.setBoton(22);
+                this.setVisible(false);
+                this.controlador.tablero.setVisible(true);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "No tienes la cantidad de trampa suficiente.");
+            }
+        }
+        
     }//GEN-LAST:event_trampaLadronesActionPerformed
 
     private void renacerMuertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_renacerMuertoActionPerformed
-        // TODO add your handling code here:
-        Controladores.ControladorBatalla.setBoton(23);
-        this.setVisible(false);
-        VistaBatalla.tablero.setVisible(true);
+        String actual = this.controlador.getCombate().getJugadorActual();
+        String jugador = this.controlador.getCombate().getJugador1();
+        if(actual.equals(jugador)){
+            String cantidadTrampa = this.controlador.getVistaBatalla().trampaJ1.getText();
+            int trampa = Integer.parseInt(cantidadTrampa);
+            if(trampa >= 35){
+                int trampaRestante = trampa - 35;
+                this.controlador.getVistaBatalla().trampaJ1.setText(String.valueOf(trampaRestante));
+                JOptionPane.showMessageDialog(null, "Ahora elije donde irá la trampa.");
+                this.controlador.setBoton(23);
+                this.setVisible(false);
+                this.controlador.tablero.setVisible(true);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "No tienes la cantidad de trampa suficiente.");
+            }
+        }
+        else{
+            String cantidadTrampa = this.controlador.getVistaBatalla().trampaJ2.getText();
+            int trampa = Integer.parseInt(cantidadTrampa);
+            if(trampa >= 35){
+                int trampaRestante = trampa - 35;
+                this.controlador.getVistaBatalla().trampaJ2.setText(String.valueOf(trampaRestante));
+                JOptionPane.showMessageDialog(null, "Ahora elije donde irá la trampa.");
+                this.controlador.setBoton(23);
+                this.setVisible(false);
+                this.controlador.tablero.setVisible(true);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "No tienes la cantidad de trampa suficiente.");
+            }
+        }
     }//GEN-LAST:event_renacerMuertoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.setVisible(false);
+        this.controlador.tablero.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

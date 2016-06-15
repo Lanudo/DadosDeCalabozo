@@ -16,7 +16,7 @@ import javax.swing.ImageIcon;
  *
  * @author Lucas
  */
-public class DespliegueDados extends javax.swing.JPanel implements ActionListener {
+public class DespliegueDados extends javax.swing.JPanel  {
     
     Object boton;
     ControladorBatalla controlador;
@@ -38,14 +38,7 @@ public class DespliegueDados extends javax.swing.JPanel implements ActionListene
         super.paintComponent(g);
     }
     
-    @Override
-    public void actionPerformed(ActionEvent e){
-        Object botonNuevo = e.getSource();
-        this.boton = botonNuevo;
-        }
-    public Object getBoton(){
-        return boton;
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -200,79 +193,80 @@ public class DespliegueDados extends javax.swing.JPanel implements ActionListene
 
     private void despliegue1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_despliegue1ActionPerformed
         // TODO add your handling code here:
-        controlador.setBoton(1);
+        this.controlador.setBoton(1);
         this.setVisible(false);
+        this.controlador.tablero.setVisible(true);
         
     }//GEN-LAST:event_despliegue1ActionPerformed
 
     private void despliegue2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_despliegue2ActionPerformed
         // TODO add your handling code here:
-        controlador.setBoton(2);
+        this.controlador.setBoton(2);
         this.setVisible(false);
-        VistaBatalla.tablero.setVisible(true);
+        this.controlador.tablero.setVisible(true);
     }//GEN-LAST:event_despliegue2ActionPerformed
 
     private void despliegue3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_despliegue3ActionPerformed
         // TODO add your handling code here:
-        controlador.setBoton(3);
+        this.controlador.setBoton(3);
         this.setVisible(false);
-        VistaBatalla.tablero.setVisible(true);
+        this.controlador.tablero.setVisible(true);
     }//GEN-LAST:event_despliegue3ActionPerformed
 
     private void despliegue4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_despliegue4ActionPerformed
         // TODO add your handling code here:
-        controlador.setBoton(4);
+        this.controlador.setBoton(4);
         this.setVisible(false);
-        VistaBatalla.tablero.setVisible(true);
+        this.controlador.tablero.setVisible(true);
     }//GEN-LAST:event_despliegue4ActionPerformed
 
     private void despliegue5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_despliegue5ActionPerformed
         // TODO add your handling code here:
-        controlador.setBoton(5);
+        this.controlador.setBoton(5);
         this.setVisible(false);
-        VistaBatalla.tablero.setVisible(true);
+        this.controlador.tablero.setVisible(true);
     }//GEN-LAST:event_despliegue5ActionPerformed
 
     private void despliegue6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_despliegue6ActionPerformed
         // TODO add your handling code here:
-        controlador.setBoton(6);
+        this.controlador.setBoton(6);
         this.setVisible(false);
-        VistaBatalla.tablero.setVisible(true);
+        this.controlador.tablero.setVisible(true);
     }//GEN-LAST:event_despliegue6ActionPerformed
 
     private void despliegue7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_despliegue7ActionPerformed
         // TODO add your handling code here:
-        controlador.setBoton(7);
+        this.controlador.setBoton(7);
         this.setVisible(false);
-        VistaBatalla.tablero.setVisible(true);
+        this.controlador.tablero.setVisible(true);
     }//GEN-LAST:event_despliegue7ActionPerformed
 
     private void despliegue8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_despliegue8ActionPerformed
         // TODO add your handling code here:
-        controlador.setBoton(8);
+        this.controlador.setBoton(8);
         this.setVisible(false);
-        VistaBatalla.tablero.setVisible(true);
+        this.controlador.tablero.setVisible(true);
     }//GEN-LAST:event_despliegue8ActionPerformed
 
     private void despliegue9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_despliegue9ActionPerformed
         // TODO add your handling code here:
-        controlador.setBoton(9);
+        this.controlador.setBoton(9);
         this.setVisible(false);
-        VistaBatalla.tablero.setVisible(true);
+        this.controlador.tablero.setVisible(true);
     }//GEN-LAST:event_despliegue9ActionPerformed
 
     private void despliegue10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_despliegue10ActionPerformed
         // TODO add your handling code here:
-        controlador.setBoton(10);
+        this.controlador.setBoton(10);
         this.setVisible(false);
-        VistaBatalla.tablero.setVisible(true);
+        this.controlador.tablero.setVisible(true);
     }//GEN-LAST:event_despliegue10ActionPerformed
 
     private void despliegue11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_despliegue11ActionPerformed
         // TODO add your handling code here:
-        controlador.setBoton(11);
+        this.controlador.setBoton(11);
         this.setVisible(false);
-        VistaBatalla.tablero.setVisible(true);
+        this.controlador.tablero.setVisible(true);
     }//GEN-LAST:event_despliegue11ActionPerformed
 
 

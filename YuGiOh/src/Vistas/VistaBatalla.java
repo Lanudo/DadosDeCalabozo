@@ -5,6 +5,7 @@
  */
 package Vistas;
 
+import Controladores.ControladorBatalla;
 import Modelo.Combate;
 import Modelo.Tablero;
 import java.awt.Component;
@@ -25,17 +26,10 @@ public class VistaBatalla extends javax.swing.JFrame {
      * Creates new form VistaBatalla
      */
     
-    public VistaBatalla(Combate combate) {
+    public VistaBatalla() {
         initComponents();
         setLocationRelativeTo(null);
-        this.combate = combate;
 
-    }
-    public void dibujo(){
-        tablero = new Tablero(null, combate);
-        panelTablero.add(tablero);
-        panelTablero.setVisible(true);
-        
     }
     
    
@@ -131,18 +125,14 @@ public class VistaBatalla extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         lanzar = new javax.swing.JButton();
         lanzarDados = new javax.swing.JButton();
-        pruebaImagen = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("panelJuego"); // NOI18N
         setResizable(false);
 
         trampa.setText("Trampa");
-        trampa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                trampaActionPerformed(evt);
-            }
-        });
 
         magia.setText("Magia");
 
@@ -151,6 +141,8 @@ public class VistaBatalla extends javax.swing.JFrame {
         jLabel2.setText("Dados:");
 
         panelDado1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        caraDado1.setEditable(false);
 
         javax.swing.GroupLayout panelDado1Layout = new javax.swing.GroupLayout(panelDado1);
         panelDado1.setLayout(panelDado1Layout);
@@ -171,6 +163,8 @@ public class VistaBatalla extends javax.swing.JFrame {
 
         panelDado2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        caraDado2.setEditable(false);
+
         javax.swing.GroupLayout panelDado2Layout = new javax.swing.GroupLayout(panelDado2);
         panelDado2.setLayout(panelDado2Layout);
         panelDado2Layout.setHorizontalGroup(
@@ -190,6 +184,8 @@ public class VistaBatalla extends javax.swing.JFrame {
 
         panelDado3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        caraDado3.setEditable(false);
+
         javax.swing.GroupLayout panelDado3Layout = new javax.swing.GroupLayout(panelDado3);
         panelDado3.setLayout(panelDado3Layout);
         panelDado3Layout.setHorizontalGroup(
@@ -208,6 +204,8 @@ public class VistaBatalla extends javax.swing.JFrame {
         );
 
         panelDado4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        caraDado4.setEditable(false);
 
         javax.swing.GroupLayout panelDado4Layout = new javax.swing.GroupLayout(panelDado4);
         panelDado4.setLayout(panelDado4Layout);
@@ -651,14 +649,16 @@ public class VistaBatalla extends javax.swing.JFrame {
             .addGroup(panelTableroLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(362, Short.MAX_VALUE))
+                .addContainerGap(376, Short.MAX_VALUE))
         );
 
         lanzar.setText("Lanzar");
 
         lanzarDados.setText("Lanzar Dados");
 
-        pruebaImagen.setText("jLabel7");
+        jLabel8.setText("Jugador 1.");
+
+        jLabel9.setText("Jugador2.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -677,11 +677,22 @@ public class VistaBatalla extends javax.swing.JFrame {
                             .addComponent(trampa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(magia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelLanzarDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelTablero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(panelLanzarDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(panelTablero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(199, 199, 199))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(193, 193, 193)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -695,25 +706,18 @@ public class VistaBatalla extends javax.swing.JFrame {
                             .addComponent(turno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(pruebaImagen)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(28, 244, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(259, 259, 259))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(pruebaImagen)))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -739,8 +743,13 @@ public class VistaBatalla extends javax.swing.JFrame {
                                 .addComponent(finTurno, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
                             .addComponent(trampa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(69, 69, 69)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel9)
+                        .addGap(18, 18, 18)
                         .addComponent(panelLanzarDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 5, Short.MAX_VALUE))
         );
@@ -751,14 +760,6 @@ public class VistaBatalla extends javax.swing.JFrame {
     private void finTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finTurnoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_finTurnoActionPerformed
-
-    private void trampaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trampaActionPerformed
-        // TODO add your handling code here:
-        tablero.setVisible(false);
-        Trampas trampa = new Trampas();
-        panelTablero.add(trampa);
-        trampa.setVisible(true);
-    }//GEN-LAST:event_trampaActionPerformed
     
     
     
@@ -817,6 +818,8 @@ public class VistaBatalla extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     public javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -835,7 +838,6 @@ public class VistaBatalla extends javax.swing.JFrame {
     private javax.swing.JPanel panelDado4;
     public javax.swing.JPanel panelLanzarDados;
     public static javax.swing.JPanel panelTablero;
-    public javax.swing.JLabel pruebaImagen;
     public javax.swing.JButton seleccionarDado;
     public javax.swing.JButton trampa;
     public javax.swing.JTextField trampaJ1;

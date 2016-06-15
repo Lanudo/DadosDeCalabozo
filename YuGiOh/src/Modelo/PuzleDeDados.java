@@ -1,5 +1,7 @@
 package Modelo;
 
+import java.util.ArrayList;
+
 
 
 public class PuzleDeDados {
@@ -7,7 +9,7 @@ public class PuzleDeDados {
     Dado dado[] = new Dado[15];
     Jugador jugador;
     private String[] dados;
-    private String[] puzleDeDados;
+    private ArrayList<String> puzleDeDados;
 
     public Dado[] getDado() {
         return dado;
@@ -33,11 +35,12 @@ public class PuzleDeDados {
         this.dados = dados;
     }
 
-    public String[] getPuzleDeDados() {
+    public ArrayList<String> getPuzleDeDados() {
         return puzleDeDados;
     }
 
-    public void setPuzleDeDados(String[] puzleDeDados) {
+    public void setPuzleDeDados(ArrayList<String> puzleDeDados) {
         this.puzleDeDados = puzleDeDados;
     }
+    
 }

@@ -11,13 +11,15 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
+import java.applet.AudioClip;
 
 public class ControladorInicio implements ActionListener {
     private VistaInicio vistaInicio;
     
     public ControladorInicio(VistaInicio vistaInicio){
         this.vistaInicio = vistaInicio;
+        AudioClip sonido = java.applet.Applet.newAudioClip(getClass().getResource("/Sonidos/ES_HORA_DE_DE_DE_DE_DE_DEL_DUELO.wav"));
+        sonido.play();
     }
     public void iniciar_VistaInicio(){
         this.vistaInicio.iniciar.addActionListener(this);

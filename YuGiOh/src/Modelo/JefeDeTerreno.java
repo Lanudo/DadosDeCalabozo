@@ -13,7 +13,7 @@ public class JefeDeTerreno {
     
     private String nombre;
     private String habilidad;
-    private int puntosDeVida;
+    private int puntosDeVida = 5000;
     private int posicionX;
     private int posicionY;
     private int dueno;
