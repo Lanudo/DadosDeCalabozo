@@ -16,7 +16,7 @@ import javax.swing.ImageIcon;
  *
  * @author Lucas
  */
-public class DespliegueDados extends javax.swing.JPanel implements ActionListener {
+public class DespliegueDados extends javax.swing.JPanel  {
     
     Object boton;
     ControladorBatalla controlador;
@@ -38,14 +38,7 @@ public class DespliegueDados extends javax.swing.JPanel implements ActionListene
         super.paintComponent(g);
     }
     
-    @Override
-    public void actionPerformed(ActionEvent e){
-        Object botonNuevo = e.getSource();
-        this.boton = botonNuevo;
-        }
-    public Object getBoton(){
-        return boton;
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -202,6 +195,7 @@ public class DespliegueDados extends javax.swing.JPanel implements ActionListene
         // TODO add your handling code here:
         this.controlador.setBoton(1);
         this.setVisible(false);
+        this.controlador.tablero.setVisible(true);
         
     }//GEN-LAST:event_despliegue1ActionPerformed
 
