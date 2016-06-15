@@ -90,14 +90,6 @@ public class Criatura {
         this.posicionY = posicionY;
     }
 
-    public int getCantidadMovimiento() {
-        return cantidadMovimiento;
-    }
-
-    public void setCantidadMovimiento(int cantidadMovimiento) {
-        this.cantidadMovimiento = cantidadMovimiento;
-    }
-
     public int getCantidadAtaque() {
         return cantidadAtaque;
     }
@@ -112,14 +104,6 @@ public class Criatura {
 
     public void setDueno(int dueno) {
         this.dueno = dueno;
-    }
-
-    public int getIdentificador() {
-        return identificador;
-    }
-
-    public void setIdentificador(int identificador) {
-        this.identificador = identificador;
     }
 
     public Dado getDado() {
